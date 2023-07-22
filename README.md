@@ -1,4 +1,4 @@
-# snowfall_simulation
+# Snowfall Simulation
 A simple Snowfall simulation using pygame library
 
 1. Download the repo
