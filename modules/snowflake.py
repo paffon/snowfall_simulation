@@ -27,7 +27,7 @@ class Snowflake:
         drop_speed = constraint(self.error_factor * MAX_DROP_SPEED, MIN_DROP_SPEED, MAX_DROP_SPEED)
 
         self.speed = Vector(0, drop_speed) if speed is None else speed
-        self.perceived_speed = self.speed.scale(self.distance_factor)
+        self.perceived_speed = self.calc_and_return_perceived_speed()
         self.position = self.init_snowflake_position() if position is None else position
 
         self.color = color
@@ -67,7 +67,7 @@ class Snowflake:
         """
         self.speed = Vector(self.error_factor * wind.x, self.speed.y)
 
-        self.perceived_speed = self.speed.scale(self.distance_factor)
+        self.perceived_speed = self.calc_and_return_perceived_speed()
 
     def update_position_snowflake(self):
         """
