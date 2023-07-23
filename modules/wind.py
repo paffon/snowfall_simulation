@@ -27,16 +27,16 @@ class Wind(Vector):
 
         self.x = constraint(self.x, MIN_WIND, MAX_WIND)
 
-    def cyclic_update(self, cycle):
+    def cyclic_update(self, cycle, min_wind=MIN_WIND, max_wind=MAX_WIND):
         """
         Update the wind vector cyclically.
 
         Args:
             cycle (int): The number of cycles after which to reverse the wind direction.
         """
-        if self.direction > 0 and self.x > MAX_WIND:
+        if self.direction > 0 and self.x > max_wind:
             self.direction = -WIND_CHANGES_INCREMENTS / cycle
-        if self.direction < 0 and self.x < MIN_WIND:
+        if self.direction < 0 and self.x < min_wind:
             self.direction = +WIND_CHANGES_INCREMENTS / cycle
 
         self.x += self.direction

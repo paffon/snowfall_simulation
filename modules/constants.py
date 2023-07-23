@@ -10,7 +10,7 @@ LIGHT_BLUE = (0, 0, 40)
 YELLOW = (255, 255, 0)
 
 # {layer index: count}
-dict_layer_to_amount = {1: 200, 2: 130, 3: 100, 4: 20, 5: 10, 6: 3}
+dict_layer_to_amount = {1: 200, 2: 160, 3: 120, 4: 20, 5: 10, 6: 3}
 
 layers_count = len(dict_layer_to_amount)
 
@@ -22,6 +22,8 @@ MAX_DROP_SPEED = 2.5
 MIN_DROP_SPEED = MAX_DROP_SPEED * 0.5
 
 ERROR_PERCENTAGE = 10
+
+SNOWFLAKE_SHAPE = 'snowflake'
 
 # Tail
 TAIL_LENGTH = 50
@@ -70,7 +72,7 @@ def get_snowflake_color(scale=1, mode='random'):
     Returns:
         tuple: The RGB color value for the snowflake.
     """
-    min_brightness = 75
+    min_brightness = 100
     max_brightness = 255
 
     if mode == 'random':
@@ -145,5 +147,6 @@ def draw_snowflake(surface, shape, position, size, color, alpha):
 
     # Blit the temporary surface onto the main surface with transparency
     surface.blit(snowflake_surface, (position.x - size, position.y - size))
+
 
 

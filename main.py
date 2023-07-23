@@ -31,7 +31,7 @@ def main():
                 pygame.quit()
                 sys.exit()
 
-        global_wind.cyclic_update(cycle=6)  # Update global wind cyclically
+        global_wind.cyclic_update(cycle=10, min_wind=0)  # Update global wind cyclically
 
         # Clear the screen and draw the gradient background
         gradient_background = create_gradient_surface(WIDTH, HEIGHT, DARK_BLUE, LIGHT_BLUE)
@@ -39,7 +39,7 @@ def main():
 
         for layer in layers:
             layer.wind.cyclic_update(cycle=layer.mass)  # Update wind for each layer cyclically
-            layer.apply_wind(layer.wind.add(global_wind.scale(3)))  # Apply wind effects
+            layer.apply_wind(layer.wind.add(global_wind.scale(2)))  # Apply wind effects
             layer.update()  # Update snowflake positions in the layer
             layer.draw(screen)  # Draw the layer
 

@@ -17,7 +17,7 @@ class Snowflake:
             position (Vector, optional): The initial position of the snowflake. Defaults to None.
             color (tuple, optional): The RGB color value of the snowflake. Defaults to WHITE.
         """
-        self.error_factor = get_new_error()
+        self.error_factor = constraint(get_new_error(), 0, 1)
 
         self.distance_factor = (1 / distance) ** 0.5
 

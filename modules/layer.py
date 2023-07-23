@@ -57,7 +57,7 @@ class Layer:
             else:
                 color = snowflake.color
             draw_snowflake(surface=screen,
-                           shape='snowflake',
+                           shape=SNOWFLAKE_SHAPE,
                            position=snowflake.position,
                            size=snowflake.size,
                            color=color,
