@@ -32,6 +32,8 @@ class Snowflake:
 
         self.color = color
 
+        self.tail = []
+
     def calc_and_return_perceived_speed(self):
         """
         Calculate and return the perceived speed of the snowflake based on its distance.
@@ -75,30 +77,31 @@ class Snowflake:
 
         If the snowflake goes completely below the bottom of the screen, it reappears at the top with a new error factor.
         """
+        self.update_tail()
         self.position = self.position.add(self.perceived_speed)
         if self.position.y > HEIGHT + self.size:  # Completely below the bottom of the screen
             self.position = self.init_snowflake_position(y=-self.size)
             self.error_factor = get_new_error()
 
-    def draw_snowflake(self, surface, shape='circle'):
-        """
-        Draw the snowflake on the given surface.
+    def update_tail(self):
+        self.tail.insert(0, self.position.copy())
+        if len(self.tail) > TAIL_LENGTH:
+            self.tail.pop()
 
-        Args:
-            surface (pygame.Surface): The surface to draw the snowflake on.
-            shape (str, optional): The shape of the snowflake ('circle' or 'snowflake'). Defaults to 'circle'.
+    def render_tail(self, surface):
+        r, g, b = self.color
+        r_steps = r / TAIL_LENGTH
+        g_steps = g / TAIL_LENGTH
+        b_steps = b / TAIL_LENGTH
 
-        Raises:
-            ValueError: If an unknown shape is provided for snowflake drawing.
-        """
-        if shape == 'circle':
-            pygame.draw.circle(surface, self.color, (self.position.x, self.position.y), self.size)
-        elif shape == 'snowflake':
-            x, y = self.position.x, self.position.y
-            s = self.size
-            pygame.draw.line(surface, self.color, (x, y - s), (x, y + s))
-            pygame.draw.line(surface, self.color, (x - s, y), (x + s, y))
-            pygame.draw.line(surface, self.color, (x - s / 1.4, y - s / 1.4), (x + s / 1.4, y + s / 1.4))
-            pygame.draw.line(surface, self.color, (x + s / 1.4, y - s / 1.4), (x - s / 1.4, y + s / 1.4))
-        else:
-            raise ValueError(f'Unknown shape for a snowflake drawing: {shape}')
+        for i, element_position in enumerate(self.tail):
+            steps = i + 1
+            alpha = (1 - steps / TAIL_LENGTH) ** 5
+
+            draw_snowflake(
+                surface=surface,
+                shape=TAIL_SHAPE,
+                position=element_position,
+                size=self.size,
+                color=self.color,
+                alpha=alpha)

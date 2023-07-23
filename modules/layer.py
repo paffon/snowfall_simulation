@@ -50,4 +50,11 @@ class Layer:
             screen (pygame.Surface): The screen surface to draw the snowflakes on.
         """
         for snowflake in self.snowflakes:
-            snowflake.draw_snowflake(screen, shape='snowflake')
+            draw_snowflake(surface=screen,
+                           shape='snowflake',
+                           position=snowflake.position,
+                           size=snowflake.size,
+                           color=snowflake.color,
+                           alpha=1)
+            if RENDER_TAIL:
+                snowflake.render_tail(screen)

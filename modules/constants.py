@@ -7,6 +7,7 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 DARK_BLUE = (0, 0, 20)
 LIGHT_BLUE = (0, 0, 40)
+YELLOW = (255, 255, 0)
 
 # {layer index: count}
 dict_layer_to_amount = {1: 200, 2: 130, 3: 100, 4: 20, 5: 10}
@@ -21,6 +22,11 @@ MAX_DROP_SPEED = 2.5
 MIN_DROP_SPEED = MAX_DROP_SPEED * 0.5
 
 ERROR_PERCENTAGE = 10
+
+# Tail
+TAIL_LENGTH = 25
+TAIL_SHAPE = 'snowflake'
+RENDER_TAIL = True
 
 
 def get_new_error():
@@ -102,3 +108,42 @@ def create_gradient_surface(width, height, start_color, end_color):
         line_color = (r, g, b)
         pygame.draw.line(gradient_surface, line_color, (0, y), (width - 1, y))
     return gradient_surface
+
+
+def draw_snowflake(surface, shape, position, size, color, alpha):
+    """
+    Draw the snowflake on the given surface.
+
+    Args:
+        surface (pygame.Surface): The surface to draw the snowflake on.
+        shape (str, optional): The shape of the snowflake ('circle' or 'snowflake'). Defaults to 'circle'.
+        position (pygame.Vector2): The position of the center of the snowflake on the surface.
+        size (int): The size of the snowflake (radius for circle, half-length of lines for snowflake).
+        color (tuple): A tuple representing the color of the snowflake in the format (r, g, b),
+                       with values in the range of 0 to 255 for each component.
+        alpha (float): A value between 0 and 1 representing the transparency of the snowflake.
+                       0 = fully transparent (invisible), 1 = fully opaque.
+
+    Raises:
+        ValueError: If an unknown shape is provided for snowflake drawing.
+    """
+
+    # Create a temporary surface with an alpha channel
+    snowflake_surface = pygame.Surface((size * 2, size * 2), pygame.SRCALPHA)
+
+    # Draw the snowflake shape on the temporary surface
+    if shape == 'circle':
+        pygame.draw.circle(snowflake_surface, color + (int(alpha * 255),), (size, size), size)
+    elif shape == 'snowflake':
+        s = size
+        pygame.draw.line(snowflake_surface, color + (int(alpha * 255),), (size, size - s), (size, size + s))
+        pygame.draw.line(snowflake_surface, color + (int(alpha * 255),), (size - s, size), (size + s, size))
+        pygame.draw.line(snowflake_surface, color + (int(alpha * 255),), (size - s / 1.4, size - s / 1.4), (size + s / 1.4, size + s / 1.4))
+        pygame.draw.line(snowflake_surface, color + (int(alpha * 255),), (size + s / 1.4, size - s / 1.4), (size - s / 1.4, size + s / 1.4))
+    else:
+        raise ValueError(f'Unknown shape for a snowflake drawing: {shape}')
+
+    # Blit the temporary surface onto the main surface with transparency
+    surface.blit(snowflake_surface, (position.x - size, position.y - size))
+
+
