@@ -31,6 +31,8 @@ class Snowflake:
         self.position = self.init_snowflake_position() if position is None else position
 
         self.color = color
+        r, g, b = color
+        self.shiny_color = ((r + 255) / 2, (g + 255) / 2, (b + 255) / 2)
 
         self.tail = []
 

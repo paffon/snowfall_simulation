@@ -52,8 +52,8 @@ class Layer:
             screen (pygame.Surface): The screen surface to draw the snowflakes on.
         """
         for snowflake in self.snowflakes:
-            if random.random() > 0.9995:
-                color = WHITE
+            if random.random() > 0.999:
+                color = snowflake.shiny_color
             else:
                 color = snowflake.color
             draw_snowflake(surface=screen,

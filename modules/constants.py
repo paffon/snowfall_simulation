@@ -3,14 +3,14 @@ import pygame
 
 # Display
 WIDTH, HEIGHT = 1000, 600
-WHITE = (255, 255, 255)
+WHITE = (240, 240, 230)
 BLACK = (0, 0, 0)
 DARK_BLUE = (0, 0, 20)
 LIGHT_BLUE = (0, 0, 40)
 YELLOW = (255, 255, 0)
 
 # {layer index: count}
-dict_layer_to_amount = {1: 200, 2: 130, 3: 100, 4: 20, 5: 10}
+dict_layer_to_amount = {1: 200, 2: 130, 3: 100, 4: 20, 5: 10, 6: 3}
 
 layers_count = len(dict_layer_to_amount)
 

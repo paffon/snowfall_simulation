@@ -39,7 +39,7 @@ def main():
 
         for layer in layers:
             layer.wind.cyclic_update(cycle=layer.mass)  # Update wind for each layer cyclically
-            layer.apply_wind(layer.wind.add(global_wind))  # Apply wind effects
+            layer.apply_wind(layer.wind.add(global_wind.scale(3)))  # Apply wind effects
             layer.update()  # Update snowflake positions in the layer
             layer.draw(screen)  # Draw the layer
 
