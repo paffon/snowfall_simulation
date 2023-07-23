@@ -24,9 +24,9 @@ MIN_DROP_SPEED = MAX_DROP_SPEED * 0.5
 ERROR_PERCENTAGE = 10
 
 # Tail
-TAIL_LENGTH = 25
+TAIL_LENGTH = 50
 TAIL_SHAPE = 'snowflake'
-RENDER_TAIL = True
+RENDER_TAIL = False
 
 
 def get_new_error():

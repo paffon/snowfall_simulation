@@ -1,3 +1,5 @@
+import random
+
 from modules.snowflake import Snowflake
 from modules.constants import *
 
@@ -50,11 +52,15 @@ class Layer:
             screen (pygame.Surface): The screen surface to draw the snowflakes on.
         """
         for snowflake in self.snowflakes:
+            if random.random() > 0.9995:
+                color = WHITE
+            else:
+                color = snowflake.color
             draw_snowflake(surface=screen,
                            shape='snowflake',
                            position=snowflake.position,
                            size=snowflake.size,
-                           color=snowflake.color,
+                           color=color,
                            alpha=1)
             if RENDER_TAIL:
                 snowflake.render_tail(screen)
